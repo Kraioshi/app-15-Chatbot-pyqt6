@@ -7,6 +7,7 @@ class ChatbotWindow(QMainWindow):
         super().__init__()
 
         self.setMinimumSize(700, 500)
+        self.setWindowTitle("ChatGPT OpenAI Chatbot")
 
         # Add chat area widget
 
@@ -25,10 +26,6 @@ class ChatbotWindow(QMainWindow):
         self.button.setGeometry(500, 340, 50, 40)
 
         self.show()
-
-
-class Chatbot:
-    pass
 
 
 app = QApplication(sys.argv)

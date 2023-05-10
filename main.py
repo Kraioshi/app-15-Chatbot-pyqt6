@@ -9,30 +9,25 @@ class ChatbotWindow(QMainWindow):
 
         self.chatbot = Chatbot()
 
-        self.setMinimumSize(700, 500)
+        self.setMinimumSize(500, 500)
         self.setWindowTitle("ChatGPT OpenAI Chatbot")
 
         # Add chat area widget
 
         self.chat_area = QTextEdit(self)
-        self.chat_area.setGeometry(10, 10, 480, 320)
+        self.chat_area.setGeometry(10, 10, 480, 370)
         self.chat_area.setReadOnly(True)
 
         # Add input field widget
 
         self.input_field = QLineEdit(self)
-        self.input_field.setGeometry(10, 340, 480, 40)
+        self.input_field.setGeometry(10, 390, 410, 28)
 
         # Add the button
 
         self.button = QPushButton("Send", self)
-        self.button.setGeometry(500, 340, 50, 40)
+        self.button.setGeometry(430, 389, 60, 30)
         self.button.clicked.connect(self.respond)
-
-        # Add clear button
-        self.clear_button = QPushButton("Clear", self)
-        self.clear_button.setGeometry(10, 400, 40, 30)
-        self.clear_button.clicked.connect(self.clear)
 
         self.show()
 
@@ -41,10 +36,8 @@ class ChatbotWindow(QMainWindow):
         self.chat_area.append(f"<p style='color:#333333'>Me: {user_text}</p>")
         self.input_field.clear()
         re = self.chatbot.get_response(user_text)
-        self.chat_area.append(f"<p style='color:#333333; background-color: #E9E9E9'>Bot: {re}</p>")
+        self.chat_area.append(f"<p style='color:#333333; background-color: #D6D6D6'>Bot: {re}</p>")
 
-    def clear(self):
-        self.chat_area.clear()
 
 
 

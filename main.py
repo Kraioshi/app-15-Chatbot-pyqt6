@@ -2,6 +2,7 @@ import sys
 from PyQt6.QtWidgets import QMainWindow, QTextEdit, QLineEdit, QPushButton, QApplication, QStatusBar
 from backend import Chatbot
 import threading
+import pyperclip
 
 
 class ChatbotWindow(QMainWindow):
@@ -10,7 +11,7 @@ class ChatbotWindow(QMainWindow):
 
         self.chatbot = Chatbot()
 
-        self.setMinimumSize(500, 500)
+        self.setMinimumSize(500, 475)
         self.setWindowTitle("ChatGPT OpenAI Chatbot")
 
         # Add chat area widget
@@ -22,14 +23,27 @@ class ChatbotWindow(QMainWindow):
         # Add input field widget
 
         self.input_field = QLineEdit(self)
-        self.input_field.setGeometry(10, 390, 410, 28)
+        self.input_field.setGeometry(10, 390, 480, 28)
         self.input_field.returnPressed.connect(self.respond)
 
         # Add the button
 
-        self.button = QPushButton("Send", self)
-        self.button.setGeometry(430, 389, 60, 30)
-        self.button.clicked.connect(self.respond)
+        self.send_button = QPushButton("Send", self)
+        self.send_button.setGeometry(10, 430, 60, 30)
+        self.send_button.clicked.connect(self.respond)
+
+        # Add clear button
+
+        self.clear_button = QPushButton("Clear", self)
+        self.clear_button.setGeometry(80, 430, 60, 30)
+        self.clear_button.clicked.connect(self.clear)
+
+        # Add copy button
+
+        self.copy_button = QPushButton("Copy", self)
+        self.copy_button.setGeometry(150, 430, 60, 30)
+        self.copy_button.clicked.connect(self.copy)
+
 
 
         self.show()
@@ -46,8 +60,14 @@ class ChatbotWindow(QMainWindow):
         re = self.chatbot.get_response(user_text)
         self.chat_area.append(f"<p style='color:#333333; background-color: #D6D6D6'>Bot: {re}</p>")
 
+    def clear(self):
+        self.chat_area.clear()
+
+    def copy(self):
+        txt = self.chat_area.toPlainText()
+        pyperclip.copy(txt)
+
 
 app = QApplication(sys.argv)
 project = ChatbotWindow()
-# project.show()
 sys.exit(app.exec())

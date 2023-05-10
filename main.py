@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QMainWindow, QTextEdit, QLineEdit, QPushButton, QApplication
+from PyQt6.QtWidgets import QMainWindow, QTextEdit, QLineEdit, QPushButton, QApplication, QStatusBar
 from backend import Chatbot
 import threading
 
@@ -23,12 +23,14 @@ class ChatbotWindow(QMainWindow):
 
         self.input_field = QLineEdit(self)
         self.input_field.setGeometry(10, 390, 410, 28)
+        self.input_field.returnPressed.connect(self.respond)
 
         # Add the button
 
         self.button = QPushButton("Send", self)
         self.button.setGeometry(430, 389, 60, 30)
         self.button.clicked.connect(self.respond)
+
 
         self.show()
 
